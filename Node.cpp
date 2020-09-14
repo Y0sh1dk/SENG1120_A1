@@ -1,33 +1,42 @@
 
 #include "Node.h"
 
+Node::Node() {
+    data = ""; // string cannot be made null
+    next = NULL;
+    prev = NULL;
+}
 
-Node::Node(value_type d, Node* n = NULL, Node* p = NULL) {
+Node::Node(value_type d, Node* n, Node* p) {
     data = d;
     next = n;
     prev = p;
+}
+
+Node::~Node() {
+    // TODO: stff
 
 }
 
-Node::value_type Node::get_data() const {
+Node::value_type Node::getData() const {
     return data;
 }
 
-void Node::set_data(const Node::value_type givenData) {
+void Node::setData(const Node::value_type givenData) {
     data = givenData;
 }
 
-Node* Node::get_next() {
+Node* Node::getNext() {
     return next;
 }
-void Node::set_next(Node* n) {
+void Node::setNext(Node* n) {
     next = n;
 }
 
-Node* Node::get_prev() {
+Node* Node::getPrev() {
     return prev;
 }
 
-void Node::set_prev(Node* n) {
+void Node::setPrev(Node* n) {
     prev = n;
 }

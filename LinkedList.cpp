@@ -2,18 +2,23 @@
 
 
 LinkedList::LinkedList() {
+    current = NULL;
     head = NULL;
     tail = NULL;
 }
 
-void LinkedList::addToHead(Node::value_type& item) {
+LinkedList::~LinkedList() {
+    // Do stuff
+}
+
+void LinkedList::addToHead(value_type& item) {
     head = new Node(item, head, NULL);
     if (tail == NULL) {
         tail = head;
     }
 }
 
-void LinkedList::addToTail(Node::value_type& item) {
+void LinkedList::addToTail(value_type& item) {
     if (tail == NULL) {
         Node* temp = new Node(item);
         head = temp;
@@ -21,54 +26,98 @@ void LinkedList::addToTail(Node::value_type& item) {
         temp = NULL;
     } else { // atleast one node
        Node* temp = new Node(item);
-       temp->set_prev(tail);
-       tail->set_next(temp);
+       temp->setPrev(tail);
+       tail->setNext(temp);
        tail = temp;
        temp = NULL; 
     }
 }
 
-void LinkedList::addToCurrent(Node::value_type&) {
-
-}
-
-Node::value_type LinkedList::removeFromHead() {
-
-}
-Node::value_type LinkedList::removeFromCurrent() {
-
-}
-
-void LinkedList::start() {
+void LinkedList::addToCurrent(value_type& item) {
+    Node* n = new Node(item);
+    n->setNext(current);
+    n->setPrev(current->getPrev());
+    current->setPrev(n);
+    n->getPrev()->setNext(n);
     current = head;
 }
 
-void LinkedList::end() {
-    current = tail;
+void LinkedList::removeHead() {
+    head = head->getNext();
+    delete(head->getPrev());
+    head->setPrev(NULL);
 }
 
-void LinkedList::forward() {
-    current = current->get_next();
+void LinkedList::removeTail() {
+    tail = tail->getPrev();
+    delete(tail->getNext());
+    tail->setNext(NULL);
 }
 
-void LinkedList::back() {
-    current = current->get_prev();
-}
 
-Node::value_type LinkedList::getCurrent() {
+void LinkedList::removeCurrent() {
 
 }
 
-unsigned int LinkedList::count() {
+void LinkedList::add(LinkedList::value_type s) {
+
+}
+
+void LinkedList::remove(value_type s) {
+
+}
+
+void LinkedList::sort() {
+
+}
+
+// void LinkedList::start() {
+//     current = head;
+// }
+
+// void LinkedList::end() {
+//     current = tail;
+// }
+
+// void LinkedList::forward() {
+//     current = current->getNext();
+// }
+
+// void LinkedList::back() {
+//     current = current->getPrev();
+// }
+
+LinkedList::value_type LinkedList::getCurrent() {
+    return current->getData();
+}
+
+LinkedList::value_type LinkedList::getHead() {
+    return head->getData();
+}
+
+LinkedList::value_type LinkedList::getTail() {
+    return tail->getData();
+}
+
+unsigned int LinkedList::size() {
     int a = 0;
-    for (current = head; current != NULL; current = current->get_next()) {
+    for (current = head; current != NULL; current = current->getNext()) {
         a++;
     }
     return a;
+}
+
+unsigned int LinkedList::count(LinkedList::value_type s) {
+    // Count occurances of string
+    return 0;
 }
 
 std::ostream& operator << (std::ostream& out, LinkedList& l) {
 
     // Do stuff
     return out;
+}
+
+void LinkedList::operator+= (LinkedList&) {
+
 }

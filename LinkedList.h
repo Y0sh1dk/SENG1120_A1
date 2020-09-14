@@ -5,31 +5,45 @@
 
 class LinkedList {
     public:
+        typedef Node::value_type value_type;
+        // Constructors/Destructors
         LinkedList();
+        ~LinkedList();
 
-        void addToHead(Node::value_type&);
-        void addToTail(Node::value_type&);
-        void addToCurrent(Node::value_type&);
+        void add(value_type s);
+        void remove(value_type s);
+        void sort();
 
-        Node::value_type removeFromHead();
-        Node::value_type removeFromTail();
-        Node::value_type removeFromCurrent();
+        void addToHead(value_type&);
+        void addToTail(value_type&);
+        void addToCurrent(value_type&);
+
+
+        void removeHead();
+        void removeTail();
+        void removeCurrent();
+
+        value_type getHead();
+        value_type getTail();
+        value_type getCurrent();
 
         void start();
         void end();
         void forward();
         void back();
-        Node::value_type getCurrent();
-        unsigned int count(); // can only be positive so unsigned
-        void remove(string s);
 
-        LinkedList& operator += (LinkedList& l2);
+        unsigned int count(value_type s);
+        unsigned int size(); // can only be positive so unsigned
+
+        void operator += (LinkedList& l2);
 
 
     private:
         Node* head;
         Node* tail;
         Node* current;
+
+        bool doesExist();
 
 };
 

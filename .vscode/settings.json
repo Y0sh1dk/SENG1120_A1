@@ -1,5 +1,14 @@
 {
     "files.associations": {
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "initializer_list": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "type_traits": "cpp",
+        "xmemory": "cpp",
+        "xtr1common": "cpp",
+        "xutility": "cpp",
+        "cctype": "cpp",
+        "cstdio": "cpp"
     }
 }

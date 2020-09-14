@@ -5,21 +5,23 @@
 
 class Node {
     public:
-        typedef string value_type;
+        typedef std::string value_type;
 
-        // COnstructors
+        // Constructors/destructor
+        Node();
         Node(value_type data, Node* p = NULL, Node* n = NULL);
+        ~Node();
 
 
 
-        void set_data(const value_type givenData);
-        value_type get_data() const;
+        void setData(const value_type givenData);
+        value_type getData() const;
 
-        Node* get_next();
-        void set_next(Node* n);
+        Node* getNext();
+        void setNext(Node* n);
 
-        Node* get_prev();
-        void set_prev(Node* n);
+        Node* getPrev();
+        void setPrev(Node* n);
 
 
     private:
@@ -27,9 +29,6 @@ class Node {
         Node* next;
         Node* prev;
 };
-
-
-
 
 
 #endif
