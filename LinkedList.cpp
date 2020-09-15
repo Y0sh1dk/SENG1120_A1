@@ -16,10 +16,20 @@ LinkedList::~LinkedList() {
 }
 
 void LinkedList::addToHead(value_type& item) {
-    head = new Node(item, head, NULL);
+//    head = new Node(item, head, NULL);
+//    if (tail == NULL) {
+//        tail = head;
+//    }
+//    head->getNext()->setPrev(head);
+    Node* newNode = new Node(item, head, NULL);
+    if (head != NULL) {
+        head->setPrev(newNode);
+    }
+    head = newNode;
     if (tail == NULL) {
         tail = head;
     }
+
 }
 
 void LinkedList::addToTail(value_type& item) {
@@ -39,13 +49,28 @@ void LinkedList::addToTail(value_type& item) {
     }
 }
 
-void LinkedList::addToCurrent(value_type& item) {
-    Node* n = new Node(item);
-    n->setNext(current);
-    n->setPrev(current->getPrev());
-    current->setPrev(n);
-    n->getPrev()->setNext(n);
-    current = head;
+void LinkedList::addAfterCurrent(value_type& item) { // insert after 'current'
+//    Node* n = new Node(item);
+//    n->setNext(current);
+//    n->setPrev(current->getPrev());
+//    current->setPrev(n);
+//    n->getPrev()->setNext(n);
+//    current = head;
+
+    if (current == NULL) { // cannot insert after a NULL
+        return;
+    }
+
+    Node* newNode = new Node(item);
+    if (current == tail) {
+        tail = newNode;
+    }
+    newNode->setNext(current->getNext());
+    current->setNext(newNode);
+    newNode->setPrev(current);
+    if (newNode->getNext() != NULL) {
+        newNode->getNext()->setPrev(newNode);
+    }
 }
 
 void LinkedList::removeHead() {
@@ -80,7 +105,6 @@ void LinkedList::add(LinkedList::value_type s) {
     for (unsigned long int i = 0; i <= s.length(); i++) {
         if (isspace(s[i])) {
             std::string word = s.substr(pos+1, i-pos-1);
-            // std::cout << word << std::endl;
             pos = i;
             addToTail(word);
         }
@@ -102,7 +126,45 @@ void LinkedList::remove(value_type s) {
 }
 
 void LinkedList::sort() {
+    start();
+    int s = size();
+    bool ordered = false;
+    while (!ordered) {
+        start();
+        bool order = true;
+        for (int i = 0; i < s-1; i++) {
 
+            std::string currentString = getCurrent();
+            forward();
+            std::string nextString = getCurrent();
+
+//        Find smallest word
+            int minWordSize = 0;
+            if (currentString.length() > nextString.length()) {
+                minWordSize = nextString.length();
+            } else if (currentString.length() < nextString.length()) {
+                minWordSize = currentString.length();
+            } else { // same size
+                minWordSize = currentString.length();
+            }
+
+            for (int i = 0; i < minWordSize; i++) {
+                if (currentString.at(i) > nextString.at(i)) {
+////                swap two nodes
+                    std::string temp = current->getData();
+                    removeCurrent();
+                    addToHead(temp);
+                    order = false;
+                    break;
+                } else if (currentString.at(i) < nextString.at(i)) {
+                    break;
+                }
+            }
+        }
+        if (order) {
+            ordered = true;
+        }
+    }
 }
 
 void LinkedList::start() {

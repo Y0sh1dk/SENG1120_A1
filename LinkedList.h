@@ -16,7 +16,7 @@ class LinkedList {
 
         void addToHead(value_type&);
         void addToTail(value_type&);
-        void addToCurrent(value_type&);
+        void addAfterCurrent(value_type&);
 
 
         void removeHead();
