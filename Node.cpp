@@ -1,4 +1,3 @@
-
 #include "Node.h"
 
 Node::Node() {
@@ -14,8 +13,9 @@ Node::Node(value_type d, Node* n, Node* p) {
 }
 
 Node::~Node() {
-    // TODO: stff
-
+//    delete next;
+//    delete prev;
+//    Cannot do this ^ or deleting one node will delete them all
 }
 
 Node::value_type Node::getData() const {

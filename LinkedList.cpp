@@ -1,9 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
-
 #include "LinkedList.h"
-
 
 LinkedList::LinkedList() {
     current = NULL;
@@ -12,15 +10,22 @@ LinkedList::LinkedList() {
 }
 
 LinkedList::~LinkedList() {
-    // Do stuff
+    if (size() > 0) {
+        start();
+        while(1) {
+            Node* next;
+            if (current->getNext() != NULL) {
+                next = current->getNext();
+            } else {
+                break;
+            }
+            delete current;
+            current = next;
+        }
+    }
 }
 
 void LinkedList::addToHead(value_type& item) {
-//    head = new Node(item, head, NULL);
-//    if (tail == NULL) {
-//        tail = head;
-//    }
-//    head->getNext()->setPrev(head);
     Node* newNode = new Node(item, head, NULL);
     if (head != NULL) {
         head->setPrev(newNode);
@@ -29,7 +34,6 @@ void LinkedList::addToHead(value_type& item) {
     if (tail == NULL) {
         tail = head;
     }
-
 }
 
 void LinkedList::addToTail(value_type& item) {
@@ -50,17 +54,9 @@ void LinkedList::addToTail(value_type& item) {
 }
 
 void LinkedList::addAfterCurrent(value_type& item) { // insert after 'current'
-//    Node* n = new Node(item);
-//    n->setNext(current);
-//    n->setPrev(current->getPrev());
-//    current->setPrev(n);
-//    n->getPrev()->setNext(n);
-//    current = head;
-
     if (current == NULL) { // cannot insert after a NULL
         return;
     }
-
     Node* newNode = new Node(item);
     if (current == tail) {
         tail = newNode;
@@ -85,7 +81,6 @@ void LinkedList::removeTail() {
     tail->setNext(NULL);
 }
 
-
 void LinkedList::removeCurrent() {
     if (current != tail) {
         current->getPrev()->setNext(current->getNext());
@@ -97,14 +92,13 @@ void LinkedList::removeCurrent() {
         delete current;
         start();
     }
-
 }
 
 void LinkedList::add(LinkedList::value_type s) {
     int pos = -1;
     for (unsigned long int i = 0; i <= s.length(); i++) {
         if (isspace(s[i])) {
-            std::string word = s.substr(pos+1, i-pos-1);
+            std::string word = s.substr(pos+1, i-pos-1); // dont like using std::string, as it only works for strings then
             pos = i;
             addToTail(word);
         }
@@ -122,7 +116,6 @@ void LinkedList::remove(value_type s) {
         }
         forward();
     }
-
 }
 
 void LinkedList::sort() {
@@ -133,7 +126,6 @@ void LinkedList::sort() {
         start();
         bool order = true;
         for (int i = 0; i < s-1; i++) {
-
             std::string currentString = getCurrent();
             forward();
             std::string nextString = getCurrent();
@@ -150,7 +142,7 @@ void LinkedList::sort() {
 
             for (int i = 0; i < minWordSize; i++) {
                 if (currentString.at(i) > nextString.at(i)) {
-////                swap two nodes
+//                swap two nodes
                     std::string temp = current->getData();
                     removeCurrent();
                     addToHead(temp);
