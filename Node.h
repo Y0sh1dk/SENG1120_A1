@@ -12,8 +12,6 @@ class Node {
         Node(value_type data, Node* p = NULL, Node* n = NULL);
         ~Node();
 
-
-
         void setData(const value_type givenData);
         value_type getData() const;
 
@@ -22,7 +20,6 @@ class Node {
 
         Node* getPrev();
         void setPrev(Node* n);
-
 
     private:
         value_type data;

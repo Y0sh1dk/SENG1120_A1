@@ -9,6 +9,8 @@ LinkedList::LinkedList() {
     tail = NULL;
 }
 
+/**********************************************************************************************************************/
+
 LinkedList::~LinkedList() {
     if (size() > 0) {
         start();
@@ -25,6 +27,8 @@ LinkedList::~LinkedList() {
     }
 }
 
+/**********************************************************************************************************************/
+
 void LinkedList::addToHead(value_type& item) {
     Node* newNode = new Node(item, head, NULL);
     if (head != NULL) {
@@ -35,6 +39,8 @@ void LinkedList::addToHead(value_type& item) {
         tail = head;
     }
 }
+
+/**********************************************************************************************************************/
 
 void LinkedList::addToTail(value_type item) {
     if (tail == NULL) {
@@ -53,6 +59,8 @@ void LinkedList::addToTail(value_type item) {
     }
 }
 
+/**********************************************************************************************************************/
+
 void LinkedList::addAfterCurrent(value_type& item) { // insert after 'current'
     if (current == NULL) { // cannot insert after a NULL
         return;
@@ -69,17 +77,23 @@ void LinkedList::addAfterCurrent(value_type& item) { // insert after 'current'
     }
 }
 
+/**********************************************************************************************************************/
+
 void LinkedList::removeHead() {
     head = head->getNext();
     delete(head->getPrev());
     head->setPrev(NULL);
 }
 
+/**********************************************************************************************************************/
+
 void LinkedList::removeTail() {
     tail = tail->getPrev();
     delete(tail->getNext());
     tail->setNext(NULL);
 }
+
+/**********************************************************************************************************************/
 
 void LinkedList::removeCurrent() {
     if (current != tail) {
@@ -94,6 +108,8 @@ void LinkedList::removeCurrent() {
     }
 }
 
+/**********************************************************************************************************************/
+
 void LinkedList::add(LinkedList::value_type s) {
     int pos = -1;
     for (unsigned long int i = 0; i <= s.length(); i++) {
@@ -105,6 +121,8 @@ void LinkedList::add(LinkedList::value_type s) {
     LinkedList::value_type lastWord =  s.substr(pos+1, s.length());
     addToTail(lastWord);
 }
+
+/**********************************************************************************************************************/
 
 void LinkedList::remove(value_type s) {
     bool sentence = false; // tries to remove sentence if there is a space
@@ -120,6 +138,8 @@ void LinkedList::remove(value_type s) {
     }
 }
 
+/**********************************************************************************************************************/
+
 void LinkedList::removeWord(LinkedList::value_type s) {
     start();
     while (current != NULL) { // runs through till hits end
@@ -130,6 +150,8 @@ void LinkedList::removeWord(LinkedList::value_type s) {
         forward();
     }
 }
+
+/**********************************************************************************************************************/
 
 void LinkedList::removeSentence(LinkedList::value_type s) {
     start();
@@ -207,6 +229,7 @@ void LinkedList::removeSentence(LinkedList::value_type s) {
     }
 }
 
+/**********************************************************************************************************************/
 
 void LinkedList::sort() {
     start();
@@ -249,33 +272,49 @@ void LinkedList::sort() {
     }
 }
 
+/**********************************************************************************************************************/
+
 void LinkedList::start() {
     current = head;
 }
+
+/**********************************************************************************************************************/
 
 void LinkedList::end() {
     current = tail;
 }
 
+/**********************************************************************************************************************/
+
 void LinkedList::forward() {
     current = current->getNext();
 }
+
+/**********************************************************************************************************************/
 
 void LinkedList::back() {
     current = current->getPrev();
 }
 
+/**********************************************************************************************************************/
+
 LinkedList::value_type LinkedList::getCurrent() {
     return current->getData();
 }
+
+/**********************************************************************************************************************/
 
 LinkedList::value_type LinkedList::getHead() {
     return head->getData();
 }
 
+/**********************************************************************************************************************/
+
 LinkedList::value_type LinkedList::getTail() {
     return tail->getData();
 }
+
+/**********************************************************************************************************************/
 
 unsigned int LinkedList::size() {
     int a = 0;
@@ -285,6 +324,8 @@ unsigned int LinkedList::size() {
     start();
     return a;
 }
+
+/**********************************************************************************************************************/
 
 unsigned int LinkedList::count(LinkedList::value_type s) {
     start();
@@ -297,6 +338,8 @@ unsigned int LinkedList::count(LinkedList::value_type s) {
     }
     return a;
 }
+
+/**********************************************************************************************************************/
 
 std::ostream& operator << (std::ostream& out, LinkedList& l) {
     l.start(); // set current pointer to head
@@ -311,6 +354,8 @@ std::ostream& operator << (std::ostream& out, LinkedList& l) {
     return out;
 }
 
+/**********************************************************************************************************************/
+
 void LinkedList::operator+= (LinkedList& l2) {
     l2.start();
     int l2size = l2.size();
@@ -319,8 +364,5 @@ void LinkedList::operator+= (LinkedList& l2) {
         addToTail(temp);
         l2.forward();
     }
-}
 
-bool LinkedList::doesContainString(LinkedList::value_type s) {
-    return false;
 }

@@ -20,7 +20,6 @@ class LinkedList {
         void addToTail(value_type);
         void addAfterCurrent(value_type&);
 
-
         void removeHead();
         void removeTail();
         void removeCurrent();
@@ -37,10 +36,7 @@ class LinkedList {
         unsigned int count(value_type s);
         unsigned int size(); // can only be positive so unsigned
 
-        bool doesContainString(value_type s);
-
         void operator += (LinkedList& l2);
-
 
     private:
         Node* head;
@@ -50,7 +46,5 @@ class LinkedList {
 };
 
 std::ostream& operator << (std::ostream& out, LinkedList& l);
-
-
 
 #endif
