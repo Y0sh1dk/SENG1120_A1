@@ -102,7 +102,7 @@ void LinkedList::add(LinkedList::value_type s) {
             pos = i;
         }
     }
-    std::string lastWord =  s.substr(pos+1, s.length());
+    LinkedList::value_type lastWord =  s.substr(pos+1, s.length());
     addToTail(lastWord);
 }
 
@@ -133,8 +133,8 @@ void LinkedList::removeWord(LinkedList::value_type s) {
 
 void LinkedList::removeSentence(LinkedList::value_type s) {
     start();
-    std::string firstWord;
-    std::string lastWord;
+    LinkedList::value_type firstWord;
+    LinkedList::value_type lastWord;
     int numOfWords = 1; // always atleast 1 word
 
     int pos = -1;
@@ -216,9 +216,9 @@ void LinkedList::sort() {
         start();
         bool order = true;
         for (int i = 0; i < s-1; i++) {
-            std::string currentString = getCurrent();
+            LinkedList::value_type currentString = getCurrent();
             forward();
-            std::string nextString = getCurrent();
+            LinkedList::value_type nextString = getCurrent();
 
 //        Find smallest word
             int minWordSize = 0;
@@ -233,7 +233,7 @@ void LinkedList::sort() {
             for (int i = 0; i < minWordSize; i++) {
                 if (currentString.at(i) > nextString.at(i)) {
 //                swap two nodes
-                    std::string temp = current->getData();
+                    LinkedList::value_type temp = current->getData();
                     removeCurrent();
                     addToHead(temp);
                     order = false;
@@ -300,7 +300,7 @@ unsigned int LinkedList::count(LinkedList::value_type s) {
 
 std::ostream& operator << (std::ostream& out, LinkedList& l) {
     l.start(); // set current pointer to head
-    std::string sentence;
+    LinkedList::value_type sentence;
     int size = l.size();
     for (int i = 0; i < size; i++) {
         sentence += l.getCurrent();
@@ -315,7 +315,7 @@ void LinkedList::operator+= (LinkedList& l2) {
     l2.start();
     int l2size = l2.size();
     for (int i = 0; i < l2size; i++) {
-        std::string temp = l2.getCurrent();
+        LinkedList::value_type temp = l2.getCurrent();
         addToTail(temp);
         l2.forward();
     }
