@@ -36,7 +36,7 @@ void Node::setData(const Node::value_type givenData) {
 
 /**********************************************************************************************************************/
 
-Node* Node::getNext() {
+Node* Node::getNext() const {
     return next;
 }
 
@@ -48,7 +48,7 @@ void Node::setNext(Node* n) {
 
 /**********************************************************************************************************************/
 
-Node* Node::getPrev() {
+Node* Node::getPrev() const {
     return prev;
 }
 

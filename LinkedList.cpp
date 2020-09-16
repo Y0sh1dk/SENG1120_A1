@@ -42,7 +42,7 @@ void LinkedList::addToHead(value_type& item) {
 
 /**********************************************************************************************************************/
 
-void LinkedList::addToTail(value_type item) {
+void LinkedList::addToTail(value_type item) { // cannot take reference because of how its called
     if (tail == NULL) {
         Node* temp = new Node(item);
         head = temp;
@@ -110,7 +110,7 @@ void LinkedList::removeCurrent() {
 
 /**********************************************************************************************************************/
 
-void LinkedList::add(LinkedList::value_type s) {
+void LinkedList::add(const LinkedList::value_type& s) {
     int pos = -1;
     for (unsigned long int i = 0; i <= s.length(); i++) {
         if (isspace(s[i])) {
@@ -124,7 +124,7 @@ void LinkedList::add(LinkedList::value_type s) {
 
 /**********************************************************************************************************************/
 
-void LinkedList::remove(value_type s) {
+void LinkedList::remove(const value_type& s) {
     bool sentence = false; // tries to remove sentence if there is a space
     for (unsigned long int i = 0; i <= s.length(); i++) {
         if (isspace(s[i])) {
@@ -140,7 +140,7 @@ void LinkedList::remove(value_type s) {
 
 /**********************************************************************************************************************/
 
-void LinkedList::removeWord(LinkedList::value_type s) {
+void LinkedList::removeWord(const LinkedList::value_type& s) {
     start();
     while (current != NULL) { // runs through till hits end
         if (getCurrent() == s) {
@@ -153,7 +153,7 @@ void LinkedList::removeWord(LinkedList::value_type s) {
 
 /**********************************************************************************************************************/
 
-void LinkedList::removeSentence(LinkedList::value_type s) {
+void LinkedList::removeSentence(const LinkedList::value_type& s) {
     start();
     LinkedList::value_type firstWord;
     LinkedList::value_type lastWord;
@@ -298,25 +298,25 @@ void LinkedList::back() {
 
 /**********************************************************************************************************************/
 
-LinkedList::value_type LinkedList::getCurrent() {
+LinkedList::value_type LinkedList::getCurrent() const {
     return current->getData();
 }
 
 /**********************************************************************************************************************/
 
-LinkedList::value_type LinkedList::getHead() {
+LinkedList::value_type LinkedList::getHead() const {
     return head->getData();
 }
 
 /**********************************************************************************************************************/
 
-LinkedList::value_type LinkedList::getTail() {
+LinkedList::value_type LinkedList::getTail() const{
     return tail->getData();
 }
 
 /**********************************************************************************************************************/
 
-unsigned int LinkedList::size() {
+unsigned int const LinkedList::size() {
     int a = 0;
     for (current = head; current != NULL; current = current->getNext()) {
         a++;
@@ -327,7 +327,7 @@ unsigned int LinkedList::size() {
 
 /**********************************************************************************************************************/
 
-unsigned int LinkedList::count(LinkedList::value_type s) {
+unsigned int const LinkedList::count(const LinkedList::value_type& s) {
     start();
     int a = 0;
     while (current != NULL) {
