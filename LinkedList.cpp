@@ -36,7 +36,7 @@ void LinkedList::addToHead(value_type& item) {
     }
 }
 
-void LinkedList::addToTail(value_type& item) {
+void LinkedList::addToTail(value_type item) {
     if (tail == NULL) {
         Node* temp = new Node(item);
         head = temp;
@@ -98,9 +98,8 @@ void LinkedList::add(LinkedList::value_type s) {
     int pos = -1;
     for (unsigned long int i = 0; i <= s.length(); i++) {
         if (isspace(s[i])) {
-            std::string word = s.substr(pos+1, i-pos-1); // dont like using std::string, as it only works for strings then
+            addToTail(s.substr(pos+1, i-pos-1));
             pos = i;
-            addToTail(word);
         }
     }
     std::string lastWord =  s.substr(pos+1, s.length());
@@ -139,7 +138,6 @@ void LinkedList::removeSentence(LinkedList::value_type s) {
     std::string firstWord;
     std::string lastWord;
     int numOfWords = 1; // always atleast 1 word
-    bool sentenceFound = false;
 
     int pos = -1;
 //    Find first word of string to remove
@@ -167,8 +165,15 @@ void LinkedList::removeSentence(LinkedList::value_type s) {
     while (current != NULL) { // runs through till hits end
         if (getCurrent() == firstWord) {
             firstNode = current;
-        } else if (getCurrent() == lastWord) {
+            break;
+        }
+        forward();
+    }
+//    start();
+    while (current != NULL) {
+        if (getCurrent() == lastWord) {
             lastNode = current;
+            break;
         }
         forward();
     }
@@ -193,7 +198,6 @@ void LinkedList::removeSentence(LinkedList::value_type s) {
             current = tempNext;
         }
     }
-    std::cout << "test" << std::endl;
 }
 
 
@@ -308,4 +312,8 @@ void LinkedList::operator+= (LinkedList& l2) {
         addToTail(temp);
         l2.forward();
     }
+}
+
+bool LinkedList::doesContainString(LinkedList::value_type s) {
+    return false;
 }
