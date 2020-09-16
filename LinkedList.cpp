@@ -133,8 +133,6 @@ void LinkedList::removeWord(LinkedList::value_type s) {
 
 void LinkedList::removeSentence(LinkedList::value_type s) {
     start();
-    Node* firstNode = NULL;
-    Node* lastNode = NULL;
     std::string firstWord;
     std::string lastWord;
     int numOfWords = 1; // always atleast 1 word
@@ -160,42 +158,51 @@ void LinkedList::removeSentence(LinkedList::value_type s) {
             numOfWords++;
         }
     }
-//    Find the node of the first and last word in the LL
-    start();
-    while (current != NULL) { // runs through till hits end
-        if (getCurrent() == firstWord) {
-            firstNode = current;
-            break;
+    bool sentenceFound = true;
+    while (sentenceFound) {
+        Node* firstNode = NULL;
+        Node* lastNode = NULL;
+
+        //    Find the node of the first and last word in the LL
+        start();
+        while (current != NULL) { // runs through till hits end
+            if (getCurrent() == firstWord) {
+                firstNode = current;
+                break;
+            }
+            forward();
         }
-        forward();
-    }
 //    start();
-    while (current != NULL) {
-        if (getCurrent() == lastWord) {
-            lastNode = current;
+        while (current != NULL) {
+            if (getCurrent() == lastWord) {
+                lastNode = current;
+                break;
+            }
+            forward();
+        }
+
+        if (firstNode == NULL || lastNode == NULL) {
+            sentenceFound = false;
             break;
         }
-        forward();
-    }
-
-    if (firstNode == NULL && lastNode == NULL) {
-        return;
-    }
 
 
-    Node* t = firstNode;
-    for (int i = 0; i < numOfWords-1; i++) {
-        t = t->getNext();
-    }
-    start();
-    if (t == lastNode) { // sentence found, time to delete it
-        Node* temp = firstNode;
-        Node* tempNext = temp;
-        for (int i = 0; i < numOfWords; i++) {
-            current = tempNext;
-            tempNext = tempNext->getNext();
-            removeCurrent();
-            current = tempNext;
+        Node* t = firstNode;
+        for (int i = 0; i < numOfWords-1; i++) {
+            t = t->getNext();
+        }
+        start();
+        if (t == lastNode) { // sentence found, time to delete it
+            Node* temp = firstNode;
+            Node* tempNext = temp;
+            for (int i = 0; i < numOfWords; i++) {
+                current = tempNext;
+                tempNext = tempNext->getNext();
+                removeCurrent();
+                current = tempNext;
+            }
+        } else {
+            sentenceFound = false;
         }
     }
 }
