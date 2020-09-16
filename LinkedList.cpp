@@ -172,7 +172,7 @@ void LinkedList::removeSentence(LinkedList::value_type s) {
         }
         forward();
     }
-    
+
     if (firstNode == NULL && lastNode == NULL) {
         return;
     }
