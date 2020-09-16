@@ -55,12 +55,12 @@ int main()
 	cout << "Number of occurrences of 'black' in list 1: ";
 	cout << firstList.count("black") << endl << endl;
 	
-//  Uncomment this section if you are implementing the extended version of the method remove()	
-//	cout << "Removing 'on the black' from both lists:" << endl;
-//	firstList.remove("on the black");
-//	secondList.remove("on the black");
-//	cout << "List 1: " << firstList  << endl;
-//	cout << "List 2: " << secondList << endl << endl;
+//  Uncomment this section if you are implementing the extended version of the method remove()
+	cout << "Removing 'on the black' from both lists:" << endl;
+	firstList.remove("on the black");
+	secondList.remove("on the black");
+	cout << "List 1: " << firstList  << endl;
+	cout << "List 2: " << secondList << endl << endl;
 
 	cout << "Sorting list 1:" << endl;
 	firstList.sort();

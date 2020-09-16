@@ -108,6 +108,20 @@ void LinkedList::add(LinkedList::value_type s) {
 }
 
 void LinkedList::remove(value_type s) {
+    bool sentence = false; // tries to remove sentence if there is a space
+    for (unsigned long int i = 0; i <= s.length(); i++) {
+        if (isspace(s[i])) {
+            sentence = true;
+        }
+    }
+    if (sentence) {
+        removeSentence(s);
+    } else {
+        removeWord(s);
+    }
+}
+
+void LinkedList::removeWord(LinkedList::value_type s) {
     start();
     while (current != NULL) { // runs through till hits end
         if (getCurrent() == s) {
@@ -117,6 +131,71 @@ void LinkedList::remove(value_type s) {
         forward();
     }
 }
+
+void LinkedList::removeSentence(LinkedList::value_type s) {
+    start();
+    Node* firstNode = NULL;
+    Node* lastNode = NULL;
+    std::string firstWord;
+    std::string lastWord;
+    int numOfWords = 1; // always atleast 1 word
+    bool sentenceFound = false;
+
+    int pos = -1;
+//    Find first word of string to remove
+    for (unsigned long int i = 0; i <= s.length(); i++) {
+        if (isspace(s[i])) {
+            firstWord = s.substr(pos+1, i-pos-1);
+            break;
+        }
+    }
+//    Find last word of string to remove
+    for (unsigned long int i = s.length(); i >= 0; i--) { // loop from end forwards
+        if (isspace(s[i])) {
+            lastWord = s.substr(i-pos, s.length()+1);
+            break;
+        }
+    }
+//    Find number of words
+    for (unsigned long int i = 0; i < s.length(); i++) { // loop from end forwards
+        if (isspace(s[i])) {
+            numOfWords++;
+        }
+    }
+//    Find the node of the first and last word in the LL
+    start();
+    while (current != NULL) { // runs through till hits end
+        if (getCurrent() == firstWord) {
+            firstNode = current;
+        } else if (getCurrent() == lastWord) {
+            lastNode = current;
+        }
+        forward();
+    }
+    
+    if (firstNode == NULL && lastNode == NULL) {
+        return;
+    }
+
+
+    Node* t = firstNode;
+    for (int i = 0; i < numOfWords-1; i++) {
+        t = t->getNext();
+    }
+    start();
+    if (t == lastNode) { // sentence found, time to delete it
+        Node* temp = firstNode;
+        Node* tempNext = temp;
+        for (int i = 0; i < numOfWords; i++) {
+            current = tempNext;
+            tempNext = tempNext->getNext();
+            removeCurrent();
+            current = tempNext;
+        }
+    }
+    std::cout << "test" << std::endl;
+}
+
 
 void LinkedList::sort() {
     start();

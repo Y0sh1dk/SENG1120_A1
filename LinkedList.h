@@ -12,6 +12,8 @@ class LinkedList {
 
         void add(value_type s);
         void remove(value_type s);
+        void removeWord(value_type s);
+        void removeSentence(value_type s);
         void sort();
 
         void addToHead(value_type&);
@@ -42,8 +44,6 @@ class LinkedList {
         Node* head;
         Node* tail;
         Node* current;
-
-        bool doesExist();
 
 };
 
